@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pydantic[email]
+python-dotenv
+google-generativeai
+passlib[bcrypt] # For JWT deps
+python-jose[cryptography] # For JWT deps

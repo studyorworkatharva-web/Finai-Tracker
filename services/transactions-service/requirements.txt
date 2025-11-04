@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+alembic
+pydantic[email]
+python-dotenv
+passlib[bcrypt] # For JWT deps
+python-jose[cryptography] # For JWT deps
+
+# ML & Data
+scikit-learn
+pandas
+joblib
+
+# CSV
+# (Handled by standard lib)

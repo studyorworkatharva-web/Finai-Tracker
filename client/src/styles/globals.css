@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode Tokens */
+    --color-primary: #4F46E5;
+    --color-accent: #06B6D4;
+    --color-success: #10B981;
+    --color-danger: #EF4444;
+    --color-bg: #F8FAFC; /* slate-50 */
+    --color-fg: #0F172A; /* slate-900 */
+    --color-muted: #64748B; /* slate-500 */
+    --color-card-bg: rgba(255, 255, 255, 0.6);
+    --radius-lg: 1rem;
+    --radius-md: 0.5rem;
+  }
+ 
+  .dark {
+    /* Dark Mode Tokens */
+    --color-primary: #6366F1; /* indigo-500 */
+    --color-accent: #22D3EE; /* cyan-400 */
+    --color-success: #34D399; /* emerald-400 */
+    --color-danger: #F87171; /* red-400 */
+    --color-bg: #0F172A; /* slate-900 */
+    --color-fg: #F8FAFC; /* slate-50 */
+    --color-muted: #94A3B8; /* slate-400 */
+    --color-card-bg: rgba(23, 37, 61, 0.6); /* slate-800 with opacity */
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Glassmorphism utility */
+  .glass-card {
+    @apply bg-card backdrop-blur-xl backdrop-saturate-150;
+  }
+  
+  /* Responsive heading styles */
+  h1, h2, h3 {
+    @apply font-serif font-bold text-foreground;
+  }
+  
+  h1 { @apply text-4xl md:text-5xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+}
