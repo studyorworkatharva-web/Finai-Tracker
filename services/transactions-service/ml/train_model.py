@@ -33,7 +33,7 @@ def train_model():
     y = df['Category']
 
     # Split the data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Create a pipeline
     # TfidfVectorizer: Converts text descriptions into numerical features.
