@@ -1,11 +1,12 @@
-from pydantic_settings import BaseSettings
+# app/core/config.py
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     GEMINI_API_KEY: str
     DB_URL: str = ""
-    ENV: str = "development"
+    JWT_SECRET: str
+    JWT_ALGORITHM: str = "HS256"
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(extra="ignore", env_file=".env")
 
 settings = Settings()

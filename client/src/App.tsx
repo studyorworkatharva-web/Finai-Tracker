@@ -40,32 +40,28 @@ function App() {
     <ThemeProvider>
       <BrowserRouter>
         <Toaster position="bottom-right" />
-        <AnimatePresence mode="wait">
-          <Routes>
-            {/* Auth Routes */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-
-            {/* App Routes (Protected) */}
-            <Route
-              path="/*"
-              element={
-                <ProtectedRoute>
-                  <AppLayout>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <AnimatePresence mode="wait">
                     <Routes>
                       <Route path="/" element={<DashboardPage />} />
                       <Route path="/transactions" element={<TransactionsPage />} />
                       <Route path="/insights" element={<InsightsPage />} />
-                      <Route path="/goals"           element={<GoalsPage />} />
-                      {/* TODO: Add Profile, Settings pages */}
+                      <Route path="/goals" element={<GoalsPage />} />
                       <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
-                  </AppLayout>
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </AnimatePresence>
+                  </AnimatePresence>
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   );

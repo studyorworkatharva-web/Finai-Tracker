@@ -5,3 +5,4 @@ python-dotenv
 google-generativeai
 passlib[bcrypt] # For JWT deps
 python-jose[cryptography] # For JWT deps
+pydantic-settings>=2.0.0

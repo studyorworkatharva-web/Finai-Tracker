@@ -1,18 +1,18 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { jwtDecode } from 'jwt-decode';
+import { authApi } from '../lib/api';
 
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   user: { id: number; email: string } | null;
-  login: (tokens: { access_token: string; refresh_token: string }) => void;
+  login: (tokens: { access_token: string; refresh_token: string }) => Promise<void>;
   logout: () => void;
-  // TODO: Add refresh token logic
 }
 
 interface DecodedToken {
-  sub: string; // User ID
+  sub: string;
   exp: number;
 }
 
@@ -23,29 +23,26 @@ export const useAuthStore = create<AuthState>()(
       refreshToken: null,
       user: null,
 
-      login: (tokens) => {
+      login: async (tokens) => {
         try {
           const decoded = jwtDecode<DecodedToken>(tokens.access_token);
-          // We don't have the email from the JWT,
-          // so we'd fetch it from /auth/me
-          // For now, let's just store the ID
+          const me = await authApi.get('/me', {
+            headers: { Authorization: `Bearer ${tokens.access_token}` },
+          });
+
           set({
             accessToken: tokens.access_token,
             refreshToken: tokens.refresh_token,
-            user: { id: parseInt(decoded.sub), email: '...loading' }, // Placeholder
+            user: me.data || { id: parseInt(decoded.sub), email: 'unknown' },
           });
         } catch (error) {
-          console.error("Failed to decode token", error);
+          console.error('Login failed:', error);
           set({ accessToken: null, refreshToken: null, user: null });
         }
       },
 
-      logout: () => {
-        set({ accessToken: null, refreshToken: null, user: null });
-      },
+      logout: () => set({ accessToken: null, refreshToken: null, user: null }),
     }),
-    {
-      name: 'finai-auth-storage', // key in localStorage
-    }
+    { name: 'finai-auth-storage' }
   )
 );

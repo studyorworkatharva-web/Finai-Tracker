@@ -7,6 +7,9 @@ pydantic[email]
 python-dotenv
 passlib[bcrypt] # For JWT deps
 python-jose[cryptography] # For JWT deps
+pydantic-settings>=2.0.0
+PyJWT>=2.8.0
+python-multipart
 
 # ML & Data
 scikit-learn
