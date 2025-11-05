@@ -6,7 +6,8 @@ alembic
 pydantic
 pydantic-settings>=2.0.0
 pydantic[email]
-passlib[bcrypt]
+passlib[bcrypt]==1.7.4
+bcrypt==3.2.2
 python-jose[cryptography]
 python-dotenv
 email-validator

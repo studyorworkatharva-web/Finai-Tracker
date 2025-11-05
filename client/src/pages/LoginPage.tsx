@@ -17,12 +17,21 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      const res = await authApi.post("/auth/login", { email, password });
+      // ✅ Send JSON request to FastAPI
+      const res = await authApi.post("/auth/login", {
+        email,
+        password,
+      });
+
+      // ✅ Save tokens in Zustand or localStorage
       await loginStore.login(res.data);
+
       toast.success("Login successful");
-      navigate("/");
-    } catch (err) {
+      navigate("/"); // Redirect to dashboard or home
+    } catch (err: any) {
+      console.error("Login failed:", err);
       toast.error("Invalid credentials");
     } finally {
       setLoading(false);
@@ -36,6 +45,7 @@ export default function LoginPage() {
           <h1 className="text-3xl font-serif font-bold text-center mb-6">
             Welcome Back
           </h1>
+
           <form onSubmit={handleLogin} className="space-y-4">
             <Input
               type="email"
@@ -55,6 +65,7 @@ export default function LoginPage() {
               {loading ? "Logging in..." : "Login"}
             </Button>
           </form>
+
           <p className="text-sm text-center mt-4 text-muted">
             Don’t have an account?{" "}
             <Link to="/signup" className="text-primary hover:underline">
